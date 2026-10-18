@@ -82,9 +82,9 @@ As always, your code (all files) must be flawlessly formatted, and that means th
     So make sure to plan accordingly!
 
 ## How to Turn it In
-* Commit your code to a GitHub repository within the [lmu-cmsi2021-fall2026](https://github.com/lmu-cmsi2021-fall2026) organization with the following naming convention: `generic-api-based-username`, where _username_ is your GitHub handle
+* Commit your code to a GitHub repository within the [lmu-cmsi2021-fall2026](https://github.com/lmu-cmsi2021-fall2026) organization with the following naming convention: `generic-api-backed-username`, where _username_ is your GitHub handle
 * Update the _README.md_ file with a description of your app
-* Make sure that your deployment is live and functional at https://lmu-cmsi2021-fall2026.github.io/generic-api-based-username/ (again with _username_ being your GitHub handle)
+* Make sure that your deployment is live and functional at https://lmu-cmsi2021-fall2026.github.io/generic-api-backed-username/ (again with _username_ being your GitHub handle)
 
 ## Specific Point Allocations
 For this particular assignment, graded categories are as follows:
