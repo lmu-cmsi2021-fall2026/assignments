@@ -9,7 +9,7 @@ With this assignment, we fill out the stack, transitioning from using someone el
 ## Background Reading
 Prior resources relating to React and the web in general continue to apply for this assignment. Don’t be surprised if you continue to learn _even moar_ new techniques and technologies that apply to React and web apps overall (_ahem_ CSS _ahem_)
 
-Neon’s documentation is not written for learners, unfortunately: they assume that readers already understand the overall concepts behind building a database-backed web application. Many of their examples also use tech stacks that are different from what we are using here. However, they are authoritative, so they are link to here as a reference: https://neon.com/docs. They will come across as “advanced reading” in the early stages, but as such they do make for a good “heat check” on how well you understand the material and technology by the end of the class 
+Neon’s documentation is not written for learners, unfortunately: they assume that readers already understand the overall concepts behind building a database-backed web application. Many of their examples also use tech stacks that are different from what we are using here. However, they are authoritative, so they are linked to here as a reference: https://neon.com/docs. They will come across as “advanced reading” in the early stages, but as such they do make for a good “heat check” on how well you understand the material and technology by the end of the class 
 
 That said, some Neon documentation pages are more applicable to us at our level than others. These are worth a scan:
 * [Getting started with Neon Data API](https://neon.com/docs/data-api/get-started): You can follow this pretty closely, but for the “Connect and Query” section, note that we will be using **Option 2: Direct HTTP requests** rather than Option 1
@@ -27,7 +27,7 @@ Make sure that your blog app goes _well beyond_ the given bare-bones version: no
 * _Expand article data:_ Lots of potential here, such as adding tags, categories, loglines, sectioning, etc.—all of these will require additional table columns and possibly additional tables
 * _Filter/search articles:_ Welcome to the world of [querying](https://docs.postgrest.org/en/stable/references/api/tables_views.html#read)
 * _Categorize/group articles:_ Yes, still querying, with some [ordering](https://docs.postgrest.org/en/stable/references/api/tables_views.html#ordering) and [limits](https://docs.postgrest.org/en/stable/references/api/pagination_count.html)
-* _Page through articles:_ [Actually a necessity](https://docs.postgrest.org/en/stable/references/api/pagination_count.html) as your article counts grow—with some interesting user interface options though, ranging from classic previous/next buttons to [infinite scroll](https://blog.logrocket.com/3-ways-implement-infinite-scroll-react/) (skip the third-part library option—you can build it yourself!)
+* _Page through articles:_ [Actually a necessity](https://docs.postgrest.org/en/stable/references/api/pagination_count.html) as your article counts grow—with some interesting user interface options though, ranging from classic previous/next buttons to [infinite scroll](https://blog.logrocket.com/3-ways-implement-infinite-scroll-react/) (skip the third-party library option—you can build it yourself!)
 * _Update articles:_ API requests that update data typically use the `PATCH` method/verb, and [PostgREST is no exception](https://docs.postgrest.org/en/stable/references/api/tables_views.html#update)
 * _Delete articles:_ Correspondingly, you’ll want [`DELETE` requests](https://docs.postgrest.org/en/stable/references/api/tables_views.html#delete) for this
 * _Allow photo uploads or attachments:_ You will want to learn about [Neon Object Storage](https://neon.com/docs/storage/overview) on the back end and [file access](https://developer.mozilla.org/en-US/docs/Web/API/File_API/Using_files_from_web_applications) on the front end
@@ -107,7 +107,7 @@ CREATE TABLE article (
   date  timestamptz NOT NULL DEFAULT now()
 );
 ```
-2. Neon requires something called _row-level security_ to allow API access. There are interactive ways to do this, but again we can rely on SQL for full replicability:
+2. Neon expects every exposed table to have _row-level security_: enabling it denies all access until policies explicitly allow it, which is what the two policies below do. There are interactive ways to do this, but again we can rely on SQL for full replicability:
 ```sql
 ALTER TABLE article ENABLE ROW LEVEL SECURITY;
 CREATE POLICY anonymous_read ON article FOR SELECT TO anonymous USING (true);
@@ -166,9 +166,9 @@ VITE_NEON_DATA_API_URL=https://ep-xxxxx.apirest.c-2.us-east-1.aws.neon.tech/neon
 4. Click the green **Connect** button in your Neon console and paste the _Auth > Auth URL_ value as your `VITE_NEON_AUTH_URL` environment variable
 5. Paste the _Data API > API URL_ value as your `VITE_NEON_DATA_API_URL` environment variable
 
-_Protip:_ In full-blown dev setups, there may be multiple _.env*_ files for different environments, and in that case the filename _.env.local_ designates the specific settings to be used when running app code locally. We elided that here for simplicity, but if you wish to mimic that you are free to do so
+_Protip:_ In full-blown dev setups, there may be multiple _.env*_ files for different environments, and in that case the filename _.env.local_ designates the specific settings to be used exclusively on the machine that it is on. We elided that here for simplicity, but if you wish to mimic that you are free to do so
 
-**Test your understanding:** Look up the term “environment variable:” they are relevant in multiple contexts, and a solid understanding of the concept will serve you well in the future. For those of you _have_ encountered environment variables before (and I know for a fact that some of you have 🛠️🪚🪛), yes these are the same things—though perhaps you are seeing them set in this manner for the first time
+**Test your understanding:** Look up the term “environment variable:” they are relevant in multiple contexts, and a solid understanding of the concept will serve you well in the future. For those of you who _have_ encountered environment variables before (and I know for a fact that some of you have 🛠️🪚🪛), yes these are the same things—though perhaps you are seeing them set in this manner for the first time
 
 As for the _.env_ file itself, why is this something that you should _not_ commit? Don’t just leave this as IYKYK—make sure you _do_ know. Some of you do, based on past classes 🛠️🪚🪛 but if this stumps you, look it up or ask the instructor
 
@@ -184,7 +184,7 @@ Also make sure that your _.gitignore_ edit did work correctly: `git status` shou
 Finally! You’re almost there. Note how these instructions change the _articleService.js_ file and _nothing else_. Again, abstraction! Your final file organization may vary (for example, you might want to separate some of this code into constants or utilities files) but the point to get across here is that proper structuring of your code will _shield the rest of your app_ from database- and API-specific details. The only changes that would propagate to your components are those that affect the actual _content_ of your database, such as additional columns or tables
 
 Some of the code fragments given here require additional knowledge that we will need to elide for now. Just copy those as-is and make a mental note to ask about those later if you really want to dig in deeper:
-1. Read the environment variables into JavaScript constants. While we’re at it, let’s also define the base endpoint for accessing articles. You guessed it, PostgreSQL defines an endpoint for each table or view in the schema that it publishes (in this case, `api`):
+1. Read the environment variables into JavaScript constants. While we’re at it, let’s also define the base endpoint for accessing articles. You guessed it, PostgREST defines an endpoint for each table or view in the schema that it publishes (in this case, `api`):
 ```javascript
 const AUTH_URL = import.meta.env.VITE_NEON_AUTH_URL
 const DATA_API_URL = import.meta.env.VITE_NEON_DATA_API_URL
@@ -223,7 +223,7 @@ async function getAnonymousToken() {
 ```javascript
 async function dataApiRequest(url, { headers, ...options } = {}) {
   if (!DATA_API_URL || !AUTH_URL) {
-    throw new Error('VITE_NEON_DATA_API_URL and VITE_NEON_AUTH_URL must be set (see .env.example)')
+    throw new Error('VITE_NEON_DATA_API_URL and VITE_NEON_AUTH_URL must be set (see .env)')
   }
 
   const token = await getAnonymousToken()
@@ -269,7 +269,7 @@ After all that, we have one cleanup detail before allowing ourselves to experime
 ```javascript
 import { test, vi } from 'vitest'
 ```
-2. After the `import` statements, insert this mockup code:
+2. After the `import` statements, insert this mock code:
 ```javascript
 // The real service talks to the Neon Data API over the network, so stand in a fake one.
 vi.mock('../services/articleService', () => ({
@@ -288,11 +288,14 @@ A key notion here is that the `mock` being done above is completely _minimal_: i
 All the pieces should now be in place: `npm run dev` and try things out! As you add articles to the blog app, watch the `article` table in the Neon console to confirm that the database is online. Once you get here, what’s next is up to you! (though you most likely want to proceed to the next walkthrough)
 
 ## Another Step-by-Step Walkthrough: Auth All the Things
-If you followed the previous walkthrough closely and accurately, your blog app now happily loads and adds blog posts the a live Neon database, with articles stored permanently across however many browser sessions or machines you use. However, it’s wide open! Anyone and everyone can post articles, and you have no idea who they are
+If you followed the previous walkthrough closely and accurately, your blog app now happily loads and adds blog posts to a live Neon database, with articles stored permanently across however many browser sessions or machines you use. However, it’s wide open! Anyone and everyone can post articles, and you have no idea who they are
 
-This walkthrough nows shows you how to add _authentication_ to your app. For this, Neon provides its [managed _Better Auth_ service](https://neon.com/docs/auth/overview). This service is meant to provide turnkey, out-of-the-box ready logins and users: for developers, this just means “connect and go.” The service is “managed” because Neon runs the software and maintains the servers hosting the software—i.e., they are managing it for you. You can download, run, and host the [Better Auth library](https://better-auth.com) yourself…but you have better things to do! In that sense, their database is a managed service as well: you _could_ install and host your own [PostgreSQL](https://www.postgresql.org) database with a [PostgREST](https://postgrest.org) API server on top of it, but that’s exactly what Neon does for you, so that you can hop straight to writing web apps that use these technologies
+This walkthrough now shows you how to add _authentication_ to your app. For this, Neon provides its [managed _Better Auth_ service](https://neon.com/docs/auth/overview). This service is meant to provide turnkey, out-of-the-box ready logins and users: for developers, this just means “connect and go.” The service is “managed” because Neon runs the software and maintains the servers hosting the software—i.e., they are managing it for you. You can download, run, and host the [Better Auth library](https://better-auth.com) yourself…but you have better things to do! In that sense, their database is a managed service as well: you _could_ install and host your own [PostgreSQL](https://www.postgresql.org) database with a [PostgREST](https://postgrest.org) API server on top of it, but that’s exactly what Neon does for you, so that you can hop straight to writing web apps that use these technologies
 
 For an initial taste of Better Auth, you can follow Neon’s [React quick start](https://neon.com/docs/auth/quick-start/react) as an initial exercise. The activities and code in this walkthrough are based on that quick start, but (a) adapted to the starter blog web app and (b) expanded so that articles are now attributable to the logged-in users that created them
+
+### Neon Auth setup
+As a preflight check, make sure that the Data API and Better Auth services are ready to go: in _Postgres database > Data API > Security_, confirm that “Neon Auth is ready” is checked. If not, click the _Neon Auth_ button to activate it
 
 ### Neon SDK setup
 Like PostgREST, it is possible to interact with Better Auth purely via `fetch` requests: yes, it is “just another web service.” However, the interactions are sufficiently complex that we’d rather not write this all ourselves. For this, we need Neon’s SDK
@@ -324,7 +327,7 @@ This part will feel like the most substantive change, and it’s also the most o
 
 The purpose of this particular approach is (a) to get this workflow going as quickly as possible and (b) to keep it as similar as possible to Neon’s own [React quickstart for managed Better Auth](https://neon.com/docs/auth/quick-start/react). So again, the most important part of this walkthrough is that you _understand_ how things connect so that you can then revise it into how you actually want it to be
 
-The overall idea here is to “gate” the main blog component behind a login: users can’t get to the blog until the sign-up and login. This in itself has variants: you might want anyone to _read_ the blog but not _write_ to it unless they have signed up. Again, that’s why it’s important to understand what’s happening here vs. keeping the code wholesale:
+The overall idea here is to “gate” the main blog component behind a login: users can’t get to the blog until they sign-up and login. This in itself has variants: you might want anyone to _read_ the blog but not _write_ to it unless they have signed up. Again, that’s why it’s important to understand what’s happening here vs. keeping the code wholesale:
 1. The `App` component will now change into a “gatekeeper” that will show the blog if a user is logged in, but provide a sign-in/login user interface if the user isn’t there. Because `App` is currently the blog itself, we want to move that out to a different component, with `App` holding just the logic that chooses between the blog and sign-in/login. As such, we want to:
     * Copy _App.jsx_ and _App.css_ into new files _Blog.jsx_ and _Blog.css_
     * In _Blog.jsx_, replace all references and names pertaining to `App` into something closer to `Blog`: definitely the component’s name, plus its top-level CSS class name. There may be more but you’ll want at least those for sure
@@ -476,7 +479,8 @@ export const useAuthService = () => {
   return { session, user, authenticating, signUp, signIn, signOut }
 }
 ```
-4. (yes, this file should sit next to _articleService.js_ in the _services_ folder)
+   (yes, this file should sit next to _articleService.js_ in the _services_ folder)
+
 5. And now, the overhauled `App` component puts everything together. It imports the `useAuthService` hook that we just defined and is reduced to a decision between showing `Blog` vs. showing `LoginSignup`:
 ```jsx
 import './App.css'
@@ -501,7 +505,7 @@ export default function App() {
 ```javascript
 export default function Blog({ onSignOut }) {
 ```
-8. Then, add a button wherever you like that will allow the user to logout. Clicking this button will clear out the current session and user, causing `App` 
+8. Then, add a button wherever you like that will allow the user to logout. Clicking this button will clear out the current session and user, causing `App` to switch back to the `LoginSignup` component:
 ```jsx
 <button onClick={onSignOut}>Sign Out</button>
 ```
@@ -510,7 +514,7 @@ export default function Blog({ onSignOut }) {
 
 **Test your understanding:** Well, hmmm, that was a lot 🫠 But the big takeaway is how everything _flows_. What determines whether you see signup/login vs. the blog? What changes that state (hint), and how? As mentioned by the last step, how are errors reported? Knowing these parts will allow you to transform the rudimentary code here into the user interface that you really want
 
-Note also, this all pertains to basic email/password login, which is the default configuration for Better Auth as managed by Neon. Visit the _Better Auth_ section of the Neon console andclick on _Configure Auth_ to see how else you can customize your web app’s login experience
+Note also, this all pertains to basic email/password login, which is the default configuration for Better Auth as managed by Neon. Visit the _Better Auth_ section of the Neon console and click on _Configure Auth_ to see how else you can customize your web app’s login experience
 
 **Check your work:** Speaking of the _Better Auth_ section, do visit it after signing up one or more users into your blog app—they should be listed there now! You can see the email you used plus other details, and you also have the option to delete them. Your project, your rules. But remember, with great power comes great responsibility 🕸️
 
@@ -543,7 +547,7 @@ useAuthService.mockReturnValue({
 **Check your work:** As before, you want to ensure that none of your tests “phone home” to Neon during `npm run test`. This may not have much impact given the very minimal _App.test.jsx_, but as your test coverage grows, this is something to watch out for
 
 ## One Moar Step-by-Step Walkthrough: Just Add User
-At this point, your morphed blog app looks like it is now fully integrated with Neon: users can’t reach the blog until they have signed up and logged in, and articles are stored for posterity! But under the hood, it is missing one last foundational mechanism: actually _utilizing_ the current user’s information. Note how articles are still created anonymously—all you know that one of your users wrote them. As our way of illustrating the more general functionality of taking the logged-in user into account while going about your web app’s business, we will implement _user attribution_: storing the current user’s ID alongside the articles that they create
+At this point, your morphed blog app looks like it is now fully integrated with Neon: users can’t reach the blog until they have signed up and logged in, and articles are stored for posterity! But under the hood, it is missing one last foundational mechanism: actually _utilizing_ the current user’s information. Note how articles are still created anonymously—all you know is that one of your users wrote them. As our way of illustrating the more general functionality of taking the logged-in user into account while going about your web app’s business, we will implement _user attribution_: storing the current user’s ID alongside the articles that they create
 
 ### Database migration
 Associating articles with a user ID will require adding a column to the `article` table. When structural changes such as this are made to an existing database, that database is said to be _migrated_ to a new version. You will likely migrate your database multiple times as you work on your app, so consider this to be an example of how this is done. This migration is probably more complex than those that you will do because it replaces anonymous access with user access—something you will not likely need to change after this walkthrough
@@ -612,7 +616,7 @@ import { getAccessToken } from './authService'
 // And `dataApiRequest` now becomes…
 async function dataApiRequest(url, { headers, ...options } = {}) {
   if (!DATA_API_URL) {
-    throw new Error('VITE_NEON_DATA_API_URL must be set (see .env.example)')
+    throw new Error('VITE_NEON_DATA_API_URL must be set (see .env)')
   }
 
   const token = await getAccessToken()
@@ -628,7 +632,7 @@ async function dataApiRequest(url, { headers, ...options } = {}) {
 
 **Test your understanding:** Why does this work? What information must the access token have in order to facilitate identifying the user on the database side?
 
-**Check your work:** Login to your app as different users and create articles as each of them. In the Neon console, the `article` table’s rows should now show different user IDs, each matching their user records in the _Better Auth_ section
+**Check your work:** Log in to your app as different users and create articles as each of them. In the Neon console, the `article` table’s rows should now show different user IDs, each matching their user records in the _Better Auth_ section
 
 ### Test suite mock setup
 Almost anti-climactically, our last step involves filling one more blank in our test suite: a placeholder for the `getAccessToken` function that we introduced. We return a dummy token here, but may use other values depending on the particular test:
@@ -641,7 +645,7 @@ vi.mock('../services/authService', () => ({
 
 **Test your understanding:** What kinds of tests would require different or more realistic values for `getAccessToken`?
 
-**Check your work:** We don’t actually know how the Neon SDK’s `authClient` keeps track of the current user token, but if it does contact Neon’s servers to do so, this mock will prevent that for sure
+**Check your work:** We don’t need to know how the Neon SDK’s `authClient` keeps track of the current user token, but if it does contact Neon’s servers to do so, this mock will prevent that for sure
 
 > Aaand…exhale 😮‍💨 That’s as far as we’ll go in terms of a walkthrough!
 
@@ -649,10 +653,10 @@ The main purpose in presenting these walkthroughs in distinct sections as oppose
 
 ## Operational Tips/Suggestions
 * Note again that the wealth of possibilities means that self-study and experimentation are built into the work involved with this assignment. Make sure to plan accordingly!
-* Take advantage of the very distinct layers involved here: the back end (Neon) and the front end (React). To keep the learning manageable, try to look at each layer in isolation—see if you can first get the Neon side to work without any visual interface, possibly just printing things and/or inspecting the console. _Then_ build the user interface on top of it knowing that the back end functionality already works. Or vice versa, if the user interface part looks tricker
+* Take advantage of the very distinct layers involved here: the back end (Neon) and the front end (React). To keep the learning manageable, try to look at each layer in isolation—see if you can first get the Neon side to work without any visual interface, possibly just printing things and/or inspecting the console. _Then_ build the user interface on top of it knowing that the back end functionality already works. Or vice versa, if the user interface part looks trickier
 * You may make mistakes, change your mind about features, or run into a dead end, all of which will take time—ideally, _build that time in_ when planning out how you will work on the app
 * Setup of Prettier has been shown in class, so there is no reason at this point for why your code (all files) wouldn’t be flawlessly formatted, with 100% consistent indentation and spacing, and perfectly consistent blank-line spacing where necessary. Activate “format-on-save” if your editor has it, so you don’t have to ever worry about formatting while working
-* Many operational tips and suggestions from the past assignments also still apply—don’t hestitate to review them!
+* Many operational tips and suggestions from the past assignments also still apply—don’t hesitate to review them!
 
 ## How to Turn it In
 * Commit your code to a GitHub repository within the [lmu-cmsi2021-fall2026](https://github.com/lmu-cmsi2021-fall2026) organization with the following naming convention: `database-backed-username`, where _username_ is your GitHub handle
