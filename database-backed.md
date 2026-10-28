@@ -87,8 +87,8 @@ To provide you with something grounded and specific, this section takes you thro
 2. Create a Neon project. At a minimum you’ll want the _Postgres database_ and _Better Auth_ services. _Object storage_ can be activated later if you want to take a crack at picture or other file uploads
     * Opt out of any invitations to use AI—you’re learning now, not working 🧐
 3. In the _Postgres database > Data API_ section, click the **Enable Data API** button
-4. Next, click on the _Better Auth_ then click the **Configure Auth** button
-5. You don’t have to do anything at the configuration page, but after visiting it, in the _Postgres database > Roles_ section you should now see all of these listed. The first three are created upon enabling the Data API so may take a moment to appear:
+4. Next, in the _Better Auth_ section, click the **Configure Auth** button
+5. You don’t have to do anything at that configuration page, but after visiting it, in the _Postgres database > Roles_ section you should now see all of these listed:
     * `authenticator`
     * `anonymous`
     * `authenticated`
