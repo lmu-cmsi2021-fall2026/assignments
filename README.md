@@ -6,4 +6,4 @@ This repository hosts a public copy of the assignment write-ups for this course 
 - [Assignment 0921](./standalone.md) Standalone single-page web app
 - [Assignment 1012](./generic-api-backed.md) Generic API-backed web app
 - [Assignment 1109](./database-backed.md) Database-backed web app
-- **Assignment 1214** Your own web app
+- [Assignment 1214](./your-own.md) Your own web app
