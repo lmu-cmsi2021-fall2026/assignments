@@ -39,14 +39,14 @@ Due to the open-endedness of what your web app can be, we no longer have an all-
 ## Documentation Outlines/Templates
 Use the following outlines to drive what goes into _ideation.md_, _pitch.md_, and _README.md_. Note that the first two items are clearly derived from the [ideation process](https://cs.lmu.edu/~ray/notes/ideation/) on Dr. Toal’s website. The _README.md_ outline should also serve as a guide to your final presentation
 
-### _ideation.md_—Preliminary Ideation Journal (due 1118)
+### _ideation.md_—Preliminary Ideation Journal (due 1116)
 1. Which audiences did you consider, and which one did you settle on for your app?
 2. List the ten needs that you identified for your chosen audience
 3. State the three needs that were chosen out of the ten, and state the projects that you mapped to those needs
 4. For each of the three projects, list the goals/ideas that you brainstormed for them
 5. State the “winner” of this process
 
-### _pitch.md_—Elevator Pitch (due 1123)
+### _pitch.md_—Elevator Pitch (due 1118)
 Combining your preliminary ideation content and the feedback heard in class…
 1. State the final inspiration statement that you crafted for your chosen audience
 2. State the possible solutions from preliminary ideation that you considered
@@ -77,8 +77,8 @@ Combining your preliminary ideation content and the feedback heard in class…
 Commit the following to your `our-own-<team name>` repository:
 - Complete React project with all code and assets; the app should run directly from a `git clone` followed by `npm install` and `npm run dev`, with no further intervention
 - Do not commit any API identifiers/keys—supply these as environment variables as you did in the database-backed web app assignment
-- _ideation.md_—must be submitted by **1118**
-- _pitch.md_—must be submitted by **1123**
+- _ideation.md_—must be submitted by **1116**
+- _pitch.md_—must be submitted by **1118**
 - _README.md_—you may use different visuals for your final presentations (e.g., a slide or video presentation), but your presentation’s _content_ must be delivered in a form suitable for reading as this Markdown file
 
 ## Specific Point Allocations
